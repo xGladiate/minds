@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Calendar, Home, User, Settings, Menu, X } from "lucide-react"
-import { useState } from "react"
-import { cn } from "@/lib/utils"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Calendar, Home, User, Settings, Menu, X } from "lucide-react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/calendar", label: "Activities", icon: Calendar },
-]
+];
 
 export function SiteHeader() {
-  const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Don't show header on admin pages
   if (pathname.startsWith("/admin")) {
-    return null
+    return null;
   }
 
   return (
@@ -26,9 +26,11 @@ export function SiteHeader() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">C</span>
+            <span className="text-lg font-bold text-primary-foreground">M</span>
           </div>
-          <span className="text-xl font-semibold tracking-tight">CommunityHub</span>
+          <span className="text-xl font-semibold tracking-tight">
+            Minds Moments
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -39,7 +41,9 @@ export function SiteHeader() {
               href={item.href}
               className={cn(
                 "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                pathname === item.href ? "text-primary" : "text-muted-foreground",
+                pathname === item.href
+                  ? "text-primary"
+                  : "text-muted-foreground"
               )}
             >
               <item.icon className="h-4 w-4" />
@@ -48,23 +52,17 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/login">
-            <Button variant="ghost" size="sm">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/admin">
-            <Button variant="outline" size="sm">
-              <Settings className="h-4 w-4 mr-2" />
-              Admin
-            </Button>
-          </Link>
-        </div>
-
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
-          {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        <button
+          className="md:hidden p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? (
+            <X className="h-6 w-6" />
+          ) : (
+            <Menu className="h-6 w-6" />
+          )}
         </button>
       </div>
 
@@ -78,7 +76,9 @@ export function SiteHeader() {
                 href={item.href}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                  pathname === item.href ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted",
+                  pathname === item.href
+                    ? "bg-primary/10 text-primary"
+                    : "text-muted-foreground hover:bg-muted"
                 )}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -86,23 +86,9 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
-            <div className="border-t border-border my-2 pt-2 flex flex-col gap-2">
-              <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start">
-                  <User className="h-4 w-4 mr-2" />
-                  Log in
-                </Button>
-              </Link>
-              <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="outline" className="w-full justify-start bg-transparent">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Admin
-                </Button>
-              </Link>
-            </div>
           </nav>
         </div>
       )}
     </header>
-  )
+  );
 }
