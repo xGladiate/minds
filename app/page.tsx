@@ -7,5 +7,5 @@ export default async function IndexPage() {
   if (!user) redirect("/login");
   if (role === "admin") redirect("/admin");
 
-  redirect("/app");
+  redirect("/user");
 }
